@@ -1,0 +1,1158 @@
+{
+	"info": {
+		"_postman_id": "todo-camisetas-api-2024",
+		"name": "TodoCamisetas API - Colección Completa",
+		"description": "Colección completa para la API de TodoCamisetas con todos los endpoints CRUD y ejemplos de request/response.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "🏆 Bienvenida",
+			"item": [
+				{
+					"name": "GET - Mensaje de Bienvenida",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Bienvenida Exitosa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"🏆 Bienvenido a la API de TodoCamisetas\",\n    \"version\": \"1.0.0\",\n    \"endpoints\": {\n        \"camisetas\": \"/api/camisetas\",\n        \"clientes\": \"/api/clientes\",\n        \"tallas\": \"/api/tallas\"\n    },\n    \"documentacion\": \"Ver docs/ para más información\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "👕 Camisetas",
+			"item": [
+				{
+					"name": "GET - Listar todas las camisetas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/camisetas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"camisetas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Lista exitosa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/camisetas",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"camisetas"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Camisetas obtenidas correctamente\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"titulo\": \"Camiseta Local 2025 – Selección Chilena\",\n            \"club\": \"Selección Chilena\",\n            \"pais\": \"Chile\",\n            \"tipo\": \"Local\",\n            \"color\": \"Rojo\",\n            \"precio\": 50000,\n            \"precio_oferta\": 40000,\n            \"detalles\": \"Camiseta oficial\",\n            \"codigo_producto\": \"CHI-2025-LOCAL\",\n            \"tallas\": [\"S\", \"M\", \"L\", \"XL\"]\n        }\n    ],\n    \"total\": 3\n}"
+						}
+					]
+				},
+				{
+					"name": "GET - Obtener camiseta por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/camisetas/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"camisetas",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Camiseta encontrada",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/camisetas/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"camisetas",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Camiseta encontrada\",\n    \"data\": {\n        \"id\": 1,\n        \"titulo\": \"Camiseta Local 2025 – Selección Chilena\",\n        \"club\": \"Selección Chilena\",\n        \"pais\": \"Chile\",\n        \"tipo\": \"Local\",\n        \"color\": \"Rojo\",\n        \"precio\": 50000,\n        \"precio_oferta\": 40000,\n        \"detalles\": \"Camiseta oficial\",\n        \"codigo_producto\": \"CHI-2025-LOCAL\",\n        \"tallas\": [\"S\", \"M\", \"L\", \"XL\"]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "GET - Calcular precio final para cliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/camisetas/1/precio?cliente_id=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"camisetas",
+								"1",
+								"precio"
+							],
+							"query": [
+								{
+									"key": "cliente_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Precio calculado exitosamente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/camisetas/1/precio?cliente_id=1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"camisetas",
+										"1",
+										"precio"
+									],
+									"query": [
+										{
+											"key": "cliente_id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Precio calculado exitosamente\",\n    \"data\": {\n        \"camiseta_id\": 1,\n        \"cliente_id\": 1,\n        \"precio_final\": 36000.00\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "GET - Camisetas con precios para cliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/camisetas/cliente/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"camisetas",
+								"cliente",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Camisetas del cliente",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/camisetas/cliente/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"camisetas",
+										"cliente",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Camisetas del cliente obtenidas correctamente\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"titulo\": \"Camiseta Local 2025 – Selección Chilena\",\n            \"precio\": 50000,\n            \"precio_oferta\": 40000,\n            \"precio_final\": 36000.00,\n            \"tallas\": [\"S\", \"M\", \"L\", \"XL\"]\n        }\n    ],\n    \"total\": 3,\n    \"cliente_id\": 1\n}"
+						}
+					]
+				},
+				{
+					"name": "POST - Crear nueva camiseta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Camiseta Visita 2025 – Real Madrid\",\n    \"club\": \"Real Madrid\",\n    \"pais\": \"España\",\n    \"tipo\": \"Visita\",\n    \"color\": \"Negro\",\n    \"precio\": 65000,\n    \"precio_oferta\": 55000,\n    \"detalles\": \"Edición Champions League\",\n    \"codigo_producto\": \"RM-2025-AWAY\",\n    \"tallas\": [1, 2, 3, 4, 5, 6]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/camisetas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"camisetas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Camiseta creada exitosamente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"Camiseta Visita 2025 – Real Madrid\",\n    \"club\": \"Real Madrid\",\n    \"pais\": \"España\",\n    \"tipo\": \"Visita\",\n    \"color\": \"Negro\",\n    \"precio\": 65000,\n    \"precio_oferta\": 55000,\n    \"detalles\": \"Edición Champions League\",\n    \"codigo_producto\": \"RM-2025-AWAY\",\n    \"tallas\": [1, 2, 3, 4, 5, 6]\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/camisetas",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"camisetas"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Camiseta creada exitosamente\"\n}"
+						}
+					]
+				},
+				{
+					"name": "PUT - Actualizar camiseta",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Camiseta Local 2025 – Selección Chilena (Actualizada)\",\n    \"club\": \"Selección Chilena\",\n    \"pais\": \"Chile\",\n    \"tipo\": \"Local\",\n    \"color\": \"Rojo y Azul\",\n    \"precio\": 52000,\n    \"precio_oferta\": 42000,\n    \"detalles\": \"Camiseta oficial actualizada\",\n    \"codigo_producto\": \"CHI-2025-LOCAL-V2\",\n    \"tallas\": [1, 2, 3, 4]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/camisetas/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"camisetas",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Camiseta actualizada exitosamente",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"Camiseta Local 2025 – Selección Chilena (Actualizada)\",\n    \"club\": \"Selección Chilena\",\n    \"pais\": \"Chile\",\n    \"tipo\": \"Local\",\n    \"color\": \"Rojo y Azul\",\n    \"precio\": 52000,\n    \"precio_oferta\": 42000,\n    \"detalles\": \"Camiseta oficial actualizada\",\n    \"codigo_producto\": \"CHI-2025-LOCAL-V2\",\n    \"tallas\": [1, 2, 3, 4]\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/camisetas/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"camisetas",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Camiseta actualizada exitosamente\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE - Eliminar camiseta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/camisetas/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"camisetas",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Camiseta eliminada exitosamente",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/camisetas/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"camisetas",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Camiseta eliminada exitosamente\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "👥 Clientes",
+			"item": [
+				{
+					"name": "GET - Listar todos los clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/clientes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"clientes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Lista exitosa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/clientes",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"clientes"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Clientes obtenidos correctamente\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"nombre_comercial\": \"90minutos\",\n            \"rut\": \"12345678-9\",\n            \"direccion\": \"Providencia, Santiago\",\n            \"categoria\": \"Preferencial\",\n            \"contacto_nombre\": \"Juan Pérez\",\n            \"contacto_email\": \"contacto@90minutos.cl\",\n            \"porcentaje_oferta\": 10.00\n        }\n    ],\n    \"total\": 2\n}"
+						}
+					]
+				},
+				{
+					"name": "GET - Obtener cliente por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/clientes/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cliente encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/clientes/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"clientes",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Cliente encontrado\",\n    \"data\": {\n        \"id\": 1,\n        \"nombre_comercial\": \"90minutos\",\n        \"rut\": \"12345678-9\",\n        \"direccion\": \"Providencia, Santiago\",\n        \"categoria\": \"Preferencial\",\n        \"contacto_nombre\": \"Juan Pérez\",\n        \"contacto_email\": \"contacto@90minutos.cl\",\n        \"porcentaje_oferta\": 10.00\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "GET - Clientes por categoría",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/clientes/categoria/Preferencial",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"categoria",
+								"Preferencial"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Clientes por categoría",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/clientes/categoria/Preferencial",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"clientes",
+										"categoria",
+										"Preferencial"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Clientes de categoría 'Preferencial' obtenidos correctamente\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"nombre_comercial\": \"90minutos\",\n            \"rut\": \"12345678-9\",\n            \"categoria\": \"Preferencial\",\n            \"porcentaje_oferta\": 10.00\n        }\n    ],\n    \"total\": 1\n}"
+						}
+					]
+				},
+				{
+					"name": "POST - Crear nuevo cliente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre_comercial\": \"Deportes Chile\",\n    \"rut\": \"98765432-1\",\n    \"direccion\": \"Las Condes, Santiago\",\n    \"categoria\": \"Regular\",\n    \"contacto_nombre\": \"María González\",\n    \"contacto_email\": \"maria@deporteschile.cl\",\n    \"porcentaje_oferta\": 5.00\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/clientes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"clientes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cliente creado exitosamente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre_comercial\": \"Deportes Chile\",\n    \"rut\": \"98765432-1\",\n    \"direccion\": \"Las Condes, Santiago\",\n    \"categoria\": \"Regular\",\n    \"contacto_nombre\": \"María González\",\n    \"contacto_email\": \"maria@deporteschile.cl\",\n    \"porcentaje_oferta\": 5.00\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/clientes",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"clientes"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Cliente creado exitosamente\"\n}"
+						}
+					]
+				},
+				{
+					"name": "PUT - Actualizar cliente",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre_comercial\": \"90minutos Premium\",\n    \"rut\": \"12345678-9\",\n    \"direccion\": \"Providencia, Santiago\",\n    \"categoria\": \"Preferencial\",\n    \"contacto_nombre\": \"Juan Pérez Silva\",\n    \"contacto_email\": \"juan@90minutos.cl\",\n    \"porcentaje_oferta\": 15.00\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/clientes/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cliente actualizado exitosamente",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre_comercial\": \"90minutos Premium\",\n    \"rut\": \"12345678-9\",\n    \"direccion\": \"Providencia, Santiago\",\n    \"categoria\": \"Preferencial\",\n    \"contacto_nombre\": \"Juan Pérez Silva\",\n    \"contacto_email\": \"juan@90minutos.cl\",\n    \"porcentaje_oferta\": 15.00\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/clientes/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"clientes",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Cliente actualizado exitosamente\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE - Eliminar cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/clientes/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"clientes",
+								"3"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cliente eliminado exitosamente",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/clientes/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"clientes",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Cliente eliminado exitosamente\"\n}"
+						},
+						{
+							"name": "Error - Cliente con camisetas asociadas",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/clientes/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"clientes",
+										"1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"No se puede eliminar el cliente porque tiene camisetas asociadas para cálculo de precios\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "📏 Tallas",
+			"item": [
+				{
+					"name": "GET - Listar todas las tallas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tallas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tallas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Lista exitosa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/tallas",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tallas"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Tallas obtenidas correctamente\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"nombre\": \"XS\",\n            \"orden\": 1\n        },\n        {\n            \"id\": 2,\n            \"nombre\": \"S\",\n            \"orden\": 2\n        },\n        {\n            \"id\": 3,\n            \"nombre\": \"M\",\n            \"orden\": 3\n        }\n    ],\n    \"total\": 6\n}"
+						}
+					]
+				},
+				{
+					"name": "GET - Obtener talla por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tallas/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tallas",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Talla encontrada",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/tallas/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tallas",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Talla encontrada\",\n    \"data\": {\n        \"id\": 1,\n        \"nombre\": \"XS\",\n        \"orden\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "POST - Crear nueva talla",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"XXXL\",\n    \"orden\": 7\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tallas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tallas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Talla creada exitosamente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\": \"XXXL\",\n    \"orden\": 7\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/tallas",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tallas"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Talla creada exitosamente\"\n}"
+						}
+					]
+				},
+				{
+					"name": "PUT - Actualizar talla",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Extra Small\",\n    \"orden\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/tallas/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tallas",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Talla actualizada exitosamente",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\": \"Extra Small\",\n    \"orden\": 1\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/tallas/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tallas",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Talla actualizada exitosamente\"\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE - Eliminar talla",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/tallas/7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"tallas",
+								"7"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Talla eliminada exitosamente",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/tallas/7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"tallas",
+										"7"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Talla eliminada exitosamente\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "❌ Casos de Error",
+			"item": [
+				{
+					"name": "GET - Camiseta no encontrada (404)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/camisetas/999",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"camisetas",
+								"999"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Error 404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/camisetas/999",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"camisetas",
+										"999"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Camiseta no encontrada\"\n}"
+						}
+					]
+				},
+				{
+					"name": "POST - Campo obligatorio faltante (400)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"club\": \"Barcelona\",\n    \"precio\": 60000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/camisetas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"camisetas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Error 400 - Campo obligatorio",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"club\": \"Barcelona\",\n    \"precio\": 60000\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/camisetas",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"camisetas"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"El campo 'titulo' es obligatorio\"\n}"
+						}
+					]
+				},
+				{
+					"name": "GET - Endpoint no encontrado (404)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/inexistente",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"inexistente"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Error 404 - Endpoint",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/inexistente",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"inexistente"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Endpoint no encontrado\",\n    \"method\": \"GET\",\n    \"path\": \"/api/inexistente\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost/backend_examen",
+			"type": "string"
+		}
+	]
+} 

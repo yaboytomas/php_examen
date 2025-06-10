@@ -1,0 +1,1079 @@
+openapi: 3.0.0
+info:
+  title: "API de TodoCamisetas"
+  version: "1.0.0"
+  description: "API REST completa para la gestión de camisetas, clientes y tallas en TodoCamisetas."
+  contact:
+    name: "TodoCamisetas API"
+    email: "api@todocamisetas.com"
+
+servers:
+  - url: "http://localhost/backend_examen"
+    description: "Servidor de desarrollo local"
+
+tags:
+  - name: "Bienvenida"
+    description: "Endpoint de bienvenida y información general"
+  - name: "Camisetas"
+    description: "Operaciones CRUD para camisetas y cálculo de precios"
+  - name: "Clientes"
+    description: "Operaciones CRUD para clientes y consultas por categoría"
+  - name: "Tallas"
+    description: "Operaciones CRUD para tallas"
+
+paths:
+  /:
+    get:
+      tags:
+        - "Bienvenida"
+      summary: "Mensaje de bienvenida"
+      description: "Endpoint principal que devuelve información básica de la API"
+      responses:
+        '200':
+          description: "Bienvenida exitosa"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "🏆 Bienvenido a la API de TodoCamisetas"
+                  version:
+                    type: string
+                    example: "1.0.0"
+                  endpoints:
+                    type: object
+                    properties:
+                      camisetas:
+                        type: string
+                        example: "/api/camisetas"
+                      clientes:
+                        type: string
+                        example: "/api/clientes"
+                      tallas:
+                        type: string
+                        example: "/api/tallas"
+
+  /api/camisetas:
+    get:
+      tags:
+        - "Camisetas"
+      summary: "Listar todas las camisetas"
+      description: "Obtiene la lista completa de camisetas con sus tallas asociadas"
+      responses:
+        '200':
+          description: "Lista de camisetas obtenida exitosamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Camisetas obtenidas correctamente"
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Camiseta'
+                  total:
+                    type: integer
+                    example: 3
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      tags:
+        - "Camisetas"
+      summary: "Crear nueva camiseta"
+      description: "Crea una nueva camiseta con sus tallas asociadas"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CamisetaInput'
+      responses:
+        '201':
+          description: "Camiseta creada exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: "Datos de entrada inválidos"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                campoObligatorio:
+                  summary: "Campo obligatorio faltante"
+                  value:
+                    success: false
+                    message: "El campo 'titulo' es obligatorio"
+                precioInvalido:
+                  summary: "Precio inválido"
+                  value:
+                    success: false
+                    message: "El precio debe ser un número válido"
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/camisetas/{id}:
+    get:
+      tags:
+        - "Camisetas"
+      summary: "Obtener camiseta por ID"
+      description: "Obtiene los detalles de una camiseta específica"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID único de la camiseta"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Camiseta encontrada"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Camiseta encontrada"
+                  data:
+                    $ref: '#/components/schemas/Camiseta'
+        '400':
+          description: "ID inválido"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                message: "ID debe ser un número válido"
+        '404':
+          description: "Camiseta no encontrada"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                message: "Camiseta no encontrada"
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      tags:
+        - "Camisetas"
+      summary: "Actualizar camiseta"
+      description: "Actualiza los datos de una camiseta existente"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID único de la camiseta"
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CamisetaInput'
+      responses:
+        '200':
+          description: "Camiseta actualizada exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: "Datos de entrada inválidos o ID inválido"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: "Camiseta no encontrada"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags:
+        - "Camisetas"
+      summary: "Eliminar camiseta"
+      description: "Elimina una camiseta del sistema"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID único de la camiseta"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Camiseta eliminada exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: "ID inválido"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: "Camiseta no encontrada"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/camisetas/{id}/precio:
+    get:
+      tags:
+        - "Camisetas"
+      summary: "Calcular precio final para cliente"
+      description: "Calcula el precio final de una camiseta aplicando descuentos según la categoría del cliente"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID único de la camiseta"
+          schema:
+            type: integer
+            example: 1
+        - name: cliente_id
+          in: query
+          required: true
+          description: "ID único del cliente"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Precio calculado exitosamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Precio calculado exitosamente"
+                  data:
+                    type: object
+                    properties:
+                      camiseta_id:
+                        type: integer
+                        example: 1
+                      cliente_id:
+                        type: integer
+                        example: 1
+                      precio_final:
+                        type: number
+                        format: float
+                        example: 45000.00
+        '400':
+          description: "ID inválido o cliente_id faltante"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                idInvalido:
+                  summary: "ID de camiseta inválido"
+                  value:
+                    success: false
+                    message: "ID de camiseta debe ser un número válido"
+                clienteIdFaltante:
+                  summary: "ID de cliente faltante"
+                  value:
+                    success: false
+                    message: "ID de cliente es obligatorio y debe ser un número válido"
+        '404':
+          description: "Camiseta o cliente no encontrado"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                message: "Camiseta o cliente no encontrado"
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/clientes:
+    get:
+      tags:
+        - "Clientes"
+      summary: "Listar todos los clientes"
+      description: "Obtiene la lista completa de clientes registrados"
+      responses:
+        '200':
+          description: "Lista de clientes obtenida exitosamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Clientes obtenidos correctamente"
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Cliente'
+                  total:
+                    type: integer
+                    example: 2
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      tags:
+        - "Clientes"
+      summary: "Crear nuevo cliente"
+      description: "Registra un nuevo cliente en el sistema"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteInput'
+      responses:
+        '201':
+          description: "Cliente creado exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: "Datos de entrada inválidos"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                campoObligatorio:
+                  summary: "Campo obligatorio faltante"
+                  value:
+                    success: false
+                    message: "El campo 'nombre_comercial' es obligatorio"
+                categoriaInvalida:
+                  summary: "Categoría inválida"
+                  value:
+                    success: false
+                    message: "La categoría debe ser \"Regular\" o \"Preferencial\""
+                porcentajeInvalido:
+                  summary: "Porcentaje de oferta inválido"
+                  value:
+                    success: false
+                    message: "El porcentaje de oferta debe ser un número entre 0 y 100"
+                rutDuplicado:
+                  summary: "RUT ya registrado"
+                  value:
+                    success: false
+                    message: "Ya existe un cliente con ese RUT"
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/clientes/{id}:
+    get:
+      tags:
+        - "Clientes"
+      summary: "Obtener cliente por ID"
+      description: "Obtiene los detalles de un cliente específico"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID único del cliente"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Cliente encontrado"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Cliente encontrado"
+                  data:
+                    $ref: '#/components/schemas/Cliente'
+        '400':
+          description: "ID inválido"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: "Cliente no encontrado"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      tags:
+        - "Clientes"
+      summary: "Actualizar cliente"
+      description: "Actualiza los datos de un cliente existente"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID único del cliente"
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteInput'
+      responses:
+        '200':
+          description: "Cliente actualizado exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: "Datos de entrada inválidos o RUT duplicado"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                rutDuplicado:
+                  summary: "RUT ya existe en otro cliente"
+                  value:
+                    success: false
+                    message: "Ya existe otro cliente con ese RUT"
+        '404':
+          description: "Cliente no encontrado"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags:
+        - "Clientes"
+      summary: "Eliminar cliente"
+      description: "Elimina un cliente del sistema"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID único del cliente"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Cliente eliminado exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: "ID inválido"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: "Cliente no encontrado"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/clientes/categoria/{categoria}:
+    get:
+      tags:
+        - "Clientes"
+      summary: "Obtener clientes por categoría"
+      description: "Obtiene todos los clientes de una categoría específica"
+      parameters:
+        - name: categoria
+          in: path
+          required: true
+          description: "Categoría del cliente"
+          schema:
+            type: string
+            enum: ["Regular", "Preferencial"]
+            example: "Preferencial"
+      responses:
+        '200':
+          description: "Clientes obtenidos exitosamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Clientes de categoría 'Preferencial' obtenidos correctamente"
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Cliente'
+                  total:
+                    type: integer
+                    example: 1
+        '400':
+          description: "Categoría inválida"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                success: false
+                message: "Categoría debe ser \"Regular\" o \"Preferencial\""
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/tallas:
+    get:
+      tags:
+        - "Tallas"
+      summary: "Listar todas las tallas"
+      description: "Obtiene la lista completa de tallas disponibles"
+      responses:
+        '200':
+          description: "Lista de tallas obtenida exitosamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Tallas obtenidas correctamente"
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Talla'
+                  total:
+                    type: integer
+                    example: 6
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      tags:
+        - "Tallas"
+      summary: "Crear nueva talla"
+      description: "Crea una nueva talla en el sistema"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TallaInput'
+      responses:
+        '201':
+          description: "Talla creada exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: "Datos de entrada inválidos"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                campoObligatorio:
+                  summary: "Campo obligatorio faltante"
+                  value:
+                    success: false
+                    message: "El campo 'nombre' es obligatorio"
+                ordenInvalido:
+                  summary: "Orden inválido"
+                  value:
+                    success: false
+                    message: "El orden debe ser un número"
+                nombreDuplicado:
+                  summary: "Nombre ya existe"
+                  value:
+                    success: false
+                    message: "Ya existe una talla con ese nombre"
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/tallas/{id}:
+    get:
+      tags:
+        - "Tallas"
+      summary: "Obtener talla por ID"
+      description: "Obtiene los detalles de una talla específica"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID único de la talla"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Talla encontrada"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Talla encontrada"
+                  data:
+                    $ref: '#/components/schemas/Talla'
+        '400':
+          description: "ID inválido"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: "Talla no encontrada"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      tags:
+        - "Tallas"
+      summary: "Actualizar talla"
+      description: "Actualiza los datos de una talla existente"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID único de la talla"
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TallaInput'
+      responses:
+        '200':
+          description: "Talla actualizada exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: "Datos de entrada inválidos o nombre duplicado"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                nombreDuplicado:
+                  summary: "Nombre ya existe en otra talla"
+                  value:
+                    success: false
+                    message: "Ya existe otra talla con ese nombre"
+        '404':
+          description: "Talla no encontrada"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags:
+        - "Tallas"
+      summary: "Eliminar talla"
+      description: "Elimina una talla del sistema"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID único de la talla"
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "Talla eliminada exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: "ID inválido"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: "Talla no encontrada"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "Error interno del servidor"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Camiseta:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        titulo:
+          type: string
+          example: "Camiseta Local 2025 – Selección Chilena"
+        club:
+          type: string
+          example: "Selección Chilena"
+        pais:
+          type: string
+          nullable: true
+          example: "Chile"
+        tipo:
+          type: string
+          nullable: true
+          example: "Local"
+        color:
+          type: string
+          nullable: true
+          example: "Rojo"
+        precio:
+          type: number
+          format: float
+          example: 50000.00
+        precio_oferta:
+          type: number
+          format: float
+          nullable: true
+          example: 40000.00
+        detalles:
+          type: string
+          nullable: true
+          example: "Camiseta oficial de la Selección Chilena"
+        codigo_producto:
+          type: string
+          example: "CHI-2025-LOCAL"
+        tallas:
+          type: array
+          items:
+            type: string
+          example: ["S", "M", "L", "XL"]
+
+    CamisetaInput:
+      type: object
+      required:
+        - titulo
+        - club
+        - precio
+        - codigo_producto
+      properties:
+        titulo:
+          type: string
+          example: "Camiseta Local 2025 – Selección Chilena"
+        club:
+          type: string
+          example: "Selección Chilena"
+        pais:
+          type: string
+          nullable: true
+          example: "Chile"
+        tipo:
+          type: string
+          nullable: true
+          example: "Local"
+        color:
+          type: string
+          nullable: true
+          example: "Rojo"
+        precio:
+          type: number
+          format: float
+          example: 50000.00
+        precio_oferta:
+          type: number
+          format: float
+          nullable: true
+          example: 40000.00
+        detalles:
+          type: string
+          nullable: true
+          example: "Camiseta oficial de la Selección Chilena"
+        codigo_producto:
+          type: string
+          example: "CHI-2025-LOCAL"
+        tallas:
+          type: array
+          items:
+            type: integer
+          example: [1, 2, 3, 4]
+
+    Cliente:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre_comercial:
+          type: string
+          example: "90minutos"
+        rut:
+          type: string
+          example: "12345678-9"
+        contacto:
+          type: string
+          nullable: true
+          example: "Juan Pérez"
+        email:
+          type: string
+          nullable: true
+          example: "contacto@90minutos.cl"
+        telefono:
+          type: string
+          nullable: true
+          example: "+56912345678"
+        direccion:
+          type: string
+          nullable: true
+          example: "Av. Providencia 123, Santiago"
+        categoria:
+          type: string
+          enum: ["Regular", "Preferencial"]
+          example: "Preferencial"
+        porcentaje_oferta:
+          type: number
+          format: float
+          example: 10.00
+
+    ClienteInput:
+      type: object
+      required:
+        - nombre_comercial
+        - rut
+      properties:
+        nombre_comercial:
+          type: string
+          example: "90minutos"
+        rut:
+          type: string
+          example: "12345678-9"
+        contacto:
+          type: string
+          nullable: true
+          example: "Juan Pérez"
+        email:
+          type: string
+          nullable: true
+          example: "contacto@90minutos.cl"
+        telefono:
+          type: string
+          nullable: true
+          example: "+56912345678"
+        direccion:
+          type: string
+          nullable: true
+          example: "Av. Providencia 123, Santiago"
+        categoria:
+          type: string
+          enum: ["Regular", "Preferencial"]
+          default: "Regular"
+          example: "Preferencial"
+        porcentaje_oferta:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 100
+          default: 0
+          example: 10.00
+
+    Talla:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: "XS"
+        orden:
+          type: integer
+          example: 1
+
+    TallaInput:
+      type: object
+      required:
+        - nombre
+      properties:
+        nombre:
+          type: string
+          example: "XXL"
+        orden:
+          type: integer
+          default: 0
+          example: 7
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Operación realizada exitosamente"
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: "Descripción del error"
+        method:
+          type: string
+          example: "GET"
+        path:
+          type: string
+          example: "/api/camisetas/invalid"
+   
