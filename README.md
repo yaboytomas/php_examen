@@ -22,8 +22,8 @@ backend_examen/
 |--------|----------|---------|
 | `GET` | `/api/camisetas` | Listar todas las camisetas 
 | `GET` | `/api/camisetas/{id}` | Obtener camiseta espec
-| `GET` | `/api/camisetas/{id}/precio?cliente_id={id}` |
-| `GET` | `/api/camisetas/cliente/{cliente_id}` | Camise
-| `POST` | `/api/camisetas` | Crear nueva camiseta |
-| `PUT` | `/api/camisetas/{id}` | Actualizar camiseta |
-| `DELETE` | `/api/camisetas/{id}` | Eliminar camiseta |
+| `GET` | `/api/camisetas/{id}/precio?cliente_id={id}` 
+| `GET` | `/api/camisetas/cliente/{cliente_id}` | Camiseta 
+| `POST` | `/api/camisetas` | Crear nueva camiseta 
+| `PUT` | `/api/camisetas/{id}` | Actualizar camiseta 
+| `DELETE` | `/api/camisetas/{id}` | Eliminar camiseta 
